@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document Title</title>
+    
+    <!-- Link to your CSS file -->
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; color: #333; }
+        .tabs { margin-bottom: 20px; border-bottom: 2px solid #0056b3; padding-bottom: 10px; }
+        .tabs button { background: none; border: 1px solid #0056b3; color: #0056b3; padding: 10px 20px; cursor: pointer; border-radius: 4px; margin-right: 5px; font-weight: bold;}
+        .tabs button.active { background: #0056b3; color: white; }
+        .tab-content { display: none; padding: 20px; border: 1px solid #ccc; border-radius: 4px; background: #e8f5e9; }
+        .tab-content.active { display: block; }
+        .error { color: red; font-size: 0.9em; margin-top: 5px; display: block; }
+        .success { color: green; font-size: 0.9em; margin-top: 5px; display: block; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; background: white;}
+        input, select { padding: 8px; margin: 5px 0; width: 200px; display: block; }
+        .btn-save { background: #0056b3; color: white; border: none; padding: 10px 15px; cursor: pointer; margin-top: 10px;}
+        .btn-cancel { background: #ccc; border: none; padding: 10px 15px; cursor: pointer; margin-left: 5px;}
+        .btn-delete { background: #dc3545; color: white; border: none; padding: 5px 10px; cursor: pointer; }
+        .form-group { margin-bottom: 15px; }
+    </style>
+ 
+</head>
+<body>
+
+     <div class="tabs">
+        <button id="btn-tab-dashboard" class="active" onclick="switchTab('dashboard')">DASHBOARD</button>
+        <button id="btn-tab-refueling" onclick="switchTab('refueling')">REFUELING</button>
+        <button id="btn-tab-vehicles" onclick="switchTab('vehicles')">VEHICLES</button>
+    </div>
+ 
+    <div id="tab-dashboard" class="tab-content active">
+        <h2>Dashboard</h2>
+        <table id="dashboard-table">
+            <thead>
+                <tr>
+                    <th>Vehicle</th>
+                    <th>Average consumption (L/100km)</th>
+                </tr>
+            </thead>
+            <tbody id="dashboard-tbody">
+                </tbody>
+        </table>
+ 
+        <h3>Past refuelings</h3>
+        <table id="history-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Odometer</th>
+                    <th>Amount (L)</th>
+                    <th>Vehicle</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="history-tbody">
+                 </tbody>
+        </table>
+    </div>
+ 
+    <div id="tab-refueling" class="tab-content">
+        <h2>Record Refueling</h2>
+        <div class="form-group">
+            <label>Odometer status (km):</label>
+            <input type="number" id="ref-odometer" placeholder="e.g. 111200">
+        </div>
+        <div class="form-group">
+            <label>Amount of fuel (L):</label>
+            <input type="number" id="ref-amount" placeholder="e.g. 38">
+            <small>!Note: For precise calculation fill your tank fully.</small>
+        </div>
+        <div class="form-group">
+            <label>Vehicle:</label>
+            <select id="ref-vehicle">
+                </select>
+        </div>
+       
+        <span id="ref-msg" class="error"></span>
+       
+        <button class="btn-save" onclick="saveRefueling()">Save</button>
+        <button class="btn-cancel" onclick="clearRefuelingForm()">Cancel</button>
+    </div>
+ 
+    <div id="tab-vehicles" class="tab-content">
+        <h2>Create Vehicle Category</h2>
+        <div class="form-group">
+            <label>Type your vehicle name here:</label>
+            <input type="text" id="veh-name" placeholder="e.g. Škoda 100">
+        </div>
+       
+        <span id="veh-msg" class="error"></span>
+        <button class="btn-save" onclick="saveVehicle()">Save</button>
+ 
+        <h3>Your vehicles</h3>
+        <ul id="vehicles-list">
+            </ul>
+    </div>
+ 
+    <script src="script.js"></script>
+    
+
+
+</body>
+</html>
