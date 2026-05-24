@@ -12,8 +12,8 @@ function switchTab(tabName) {
 
 async function loadAllData() {
     try {
-        const carsResponse = await fetch(`${API_URL}/vehicle/list`);
-        const refResponse = await fetch(`${API_URL}/refueling/list`);
+        const carsResponse = await fetch(`${API_URL}/vehicles/list`);
+        const refResponse = await fetch(`${API_URL}/refuelings/list`);
         
         const vehicles = await carsResponse.json();
         const refuelings = await refResponse.json();
@@ -45,7 +45,7 @@ function renderVehiclesList(vehicles) {
 async function deleteVehicle(id) {
     if(confirm("Are you sure you want to delete this vehicle? All its refuelings will be lost!")) {
         try {
-            await fetch(`${API_URL}/vehicle/${id}`, { method: 'DELETE' });
+            await fetch(`${API_URL}/vehicles/${id}`, { method: 'DELETE' });
             loadAllData(); 
         } catch (error) {
             alert("Nepodařilo se smazat automobil.");
@@ -61,7 +61,7 @@ async function saveVehicle() {
     msgBox.className = "";
 
     try {
-        const response = await fetch(`${API_URL}/vehicle/create`, {
+        const response = await fetch(`${API_URL}/vehicles/create`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: nameInput })
@@ -117,7 +117,7 @@ async function saveRefueling() {
     msgBox.className = "";
 
     try {
-        const response = await fetch(`${API_URL}/refueling/create`, {
+        const response = await fetch(`${API_URL}/refuelings/create`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
@@ -173,7 +173,7 @@ function renderHistoryTable(refuelings, vehicles) {
 async function deleteRefueling(id) {
     if(confirm("Are you sure you want to delete this record?")) {
         try {
-            await fetch(`${API_URL}/refueling/${id}`, { method: 'DELETE' });
+            await fetch(`${API_URL}/refuelings/${id}`, { method: 'DELETE' });
             loadAllData();
         } catch (error) {
             alert("Nepodařilo se smazat záznam.");
