@@ -1,5 +1,7 @@
+// Address on which the backend servers is running on
 const API_URL = 'http://localhost:3000';
 
+// Tab design based on activity
 function switchTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tabs button').forEach(el => el.classList.remove('active'));
@@ -10,6 +12,7 @@ function switchTab(tabName) {
     loadAllData();
 }
 
+// Waiting data from server
 async function loadAllData() {
     try {
         const carsResponse = await fetch(`${API_URL}/vehicles/list`);
@@ -24,10 +27,11 @@ async function loadAllData() {
         renderDashboard(refuelings, vehicles);
 
     } catch (error) {
-        console.error("Chyba při načítání dat:", error);
+        console.error("Error when loading data:", error);
     }
 }
 
+// Loading vehicle list
 function renderVehiclesList(vehicles) {
     const list = document.getElementById('vehicles-list');
     list.innerHTML = '';
@@ -48,7 +52,7 @@ async function deleteVehicle(id) {
             await fetch(`${API_URL}/vehicles/${id}`, { method: 'DELETE' });
             loadAllData(); 
         } catch (error) {
-            alert("Nepodařilo se smazat automobil.");
+            alert("It was not possible to delete vehicle.");
         }
     }
 }
@@ -57,7 +61,7 @@ async function saveVehicle() {
     const nameInput = document.getElementById('veh-name').value;
     const msgBox = document.getElementById('veh-msg');
     
-    msgBox.textContent = "Ukládám...";
+    msgBox.textContent = "Saving...";
     msgBox.className = "";
 
     try {
@@ -79,7 +83,7 @@ async function saveVehicle() {
             loadAllData();
         }
     } catch (error) {
-        msgBox.textContent = "Chyba připojení k serveru.";
+        msgBox.textContent = "Error when connecting to the server.";
         msgBox.className = "error";
     }
 }
@@ -113,7 +117,7 @@ async function saveRefueling() {
     const vehicleId = document.getElementById('ref-vehicle').value;
     const msgBox = document.getElementById('ref-msg');
 
-    msgBox.textContent = "Ukládám...";
+    msgBox.textContent = "Saving...";
     msgBox.className = "";
 
     try {
@@ -139,7 +143,7 @@ async function saveRefueling() {
             loadAllData();
         }
     } catch (error) {
-        msgBox.textContent = "Chyba připojení k serveru.";
+        msgBox.textContent = "Error when connecting to the server.";
         msgBox.className = "error";
     }
 }
@@ -176,7 +180,7 @@ async function deleteRefueling(id) {
             await fetch(`${API_URL}/refuelings/${id}`, { method: 'DELETE' });
             loadAllData();
         } catch (error) {
-            alert("Nepodařilo se smazat záznam.");
+            alert("It was not possible to delete the record.");
         }
     }
 }
